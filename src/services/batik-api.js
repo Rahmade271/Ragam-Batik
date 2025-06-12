@@ -1,5 +1,5 @@
-import CONFIG from '../utils/constants'; 
-import AuthApi from './auth-api'; 
+import CONFIG from '../utils/constants';
+import AuthApi from './auth-api';
 
 const BatikApi = {
     async classifyBatik(imageFile) {
@@ -36,11 +36,11 @@ const BatikApi = {
     async getAllMotifs() {
         try {
             const response = await fetch(`${CONFIG.BASE_URL}/api/motif`);
-            const data = await response.json(); 
+            const data = await response.json();
             if (!response.ok) {
                 throw new Error(data.message || 'Gagal mengambil semua motif.');
             }
-            return { success: true, data: data.motifs || data }; 
+            return { success: true, data: data.motifs || data };
         } catch (error) {
             console.error('Error fetching all motifs:', error);
             return { success: false, message: error.message || 'Terjadi kesalahan jaringan' };
@@ -54,28 +54,26 @@ const BatikApi = {
             if (!response.ok) {
                 throw new Error(data.message || 'Gagal mengambil batik populer');
             }
-            return { success: true, data: data.batiks || data }; 
+            return { success: true, data: data.batiks || data };
         } catch (error) {
             console.error('Error fetching popular batiks:', error);
             return { success: false, message: error.message || 'Terjadi kesalahan jaringan' };
         }
     },
 
-
-
     async searchBatiks(keyword) {
-        const accessToken = AuthApi.getAccessToken(); 
+        const accessToken = AuthApi.getAccessToken();
         if (!accessToken) { throw new Error('Anda harus login untuk menggunakan fitur pencarian.'); }
         try {
             const response = await fetch(`${CONFIG.BASE_URL}/api/motif/search?q=${encodeURIComponent(keyword)}`, {
                 method: 'GET',
-                headers: { 'Authorization': `Bearer ${accessToken}` }, 
+                headers: { 'Authorization': `Bearer ${accessToken}` },
             });
             const data = await response.json();
             if (!response.ok) {
                 throw new Error(data.message || 'Gagal mencari batik');
             }
-            return { success: true, data: data.motifs || data.data || data }; 
+            return { success: true, data: data.motifs || data.data || data };
         } catch (error) {
             console.error(`Error searching batiks for keyword ${keyword}:`, error);
             return { success: false, message: error.message || 'Terjadi kesalahan jaringan' };
@@ -93,7 +91,7 @@ const BatikApi = {
             if (!response.ok) {
                 throw new Error(data.message || 'Gagal mengambil riwayat');
             }
-            return { success: true, data: data.history || data }; 
+            return { success: true, data: data.history || data };
         } catch (error) {
             console.error('Error fetching history:', error);
             return { success: false, message: error.message || 'Terjadi kesalahan jaringan' };
@@ -112,7 +110,7 @@ const BatikApi = {
             if (!response.ok) {
                 throw new Error(data.message || 'Gagal mengambil statistik riwayat.');
             }
-            return { success: true, data: data }; 
+            return { success: true, data: data };
         } catch (error) {
             console.error('Error fetching history stats:', error);
             return { success: false, message: error.message || 'Terjadi kesalahan jaringan.' };
@@ -121,45 +119,40 @@ const BatikApi = {
 
     async getBatikDetail(id) {
         try {
-            const response = await fetch(`${CONFIG.BASE_URL}/api/motif/${id}`); 
-            const data = await response.json(); 
+            const response = await fetch(`${CONFIG.BASE_URL}/api/motif/${id}`);
+            const data = await response.json();
             if (!response.ok) {
                 throw new Error(data.message || 'Gagal mengambil detail batik');
             }
-            return { success: true, data: data.data }; 
+            return { success: true, data: data.data };
         } catch (error) {
             console.error(`Error fetching batik detail for ID ${id}:`, error);
             return { success: false, message: error.message || 'Terjadi kesalahan jaringan' };
         }
     },
 
-     async getHistoryDetail(id) {
-        const accessToken = AuthApi.getAccessToken(); // Endpoint ini butuh token
+    async getHistoryDetail(id) {
+        const accessToken = AuthApi.getAccessToken();
         if (!accessToken) {
             console.error('BatikApi: Akses ke detail riwayat dibatalkan karena tidak ada access token.');
             throw new Error('Anda harus login untuk melihat detail riwayat.');
         }
 
         try {
-            // Menggunakan endpoint /api/history/:id seperti yang didokumentasikan
             const response = await fetch(`${CONFIG.BASE_URL}/api/history/${id}`, {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${accessToken}` },
             });
             const data = await response.json();
             if (!response.ok) {
-                // Asumsi backend mengirim pesan error di data.message
                 throw new Error(data.message || `Gagal mengambil detail riwayat untuk ID: ${id}.`);
             }
-            // Asumsi respons adalah { success: true, data: {...history_object...} }
-            // atau { data: {...history_object...} }
-            return { success: true, data: data.data || data }; 
+            return { success: true, data: data.data || data };
         } catch (error) {
             console.error(`Error fetching history detail for ID ${id}:`, error);
             return { success: false, message: error.message || 'Terjadi masalah koneksi atau server saat mengambil detail riwayat.' };
         }
     },
-
 
     async getRelatedBatiks(batikId) {
         try {
@@ -176,7 +169,7 @@ const BatikApi = {
     },
 
     async getMotifsGroupedByProvince() {
-        const accessToken = AuthApi.getAccessToken(); 
+        const accessToken = AuthApi.getAccessToken();
         if (!accessToken) { throw new Error('Anda harus login untuk melihat motif berdasarkan provinsi.'); }
         try {
             const response = await fetch(`${CONFIG.BASE_URL}/api/motif/group/provinsi`, {
@@ -187,7 +180,7 @@ const BatikApi = {
             if (!response.ok) {
                 throw new Error(data.message || 'Gagal mengambil motif berdasarkan provinsi.');
             }
-            return { success: true, data: data.groupedMotifs || data.data || data }; 
+            return { success: true, data: data.groupedMotifs || data.data || data };
         } catch (error) {
             console.error('Error fetching motifs grouped by province:', error);
             return { success: false, message: error.message || 'Terjadi kesalahan jaringan.' };

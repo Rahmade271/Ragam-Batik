@@ -1,11 +1,9 @@
-// src/pages/historydetail.js
-
-import '../styles/styles.css'; // Gaya umum
-import '../styles/batikdetail.css'; // Gaya untuk detail pages (mungkin perlu disesuaikan untuk history detail)
+import '../styles/styles.css';
+import '../styles/batikdetail.css';
 
 import BatikApi from '../services/batik-api';
 import UrlParser from '../routes/url-parser';
-import placeholderImage from '../assets/images/profil.jpeg'; // Gambar placeholder
+import placeholderImage from '../assets/images/profil.jpeg';
 
 const HistoryDetail = {
     async render() {
@@ -31,24 +29,21 @@ const HistoryDetail = {
 
     async afterRender() {
         const parsedUrl = UrlParser.parseActiveUrlWithoutCombiner();
-        const historyId = parsedUrl.id; // Ini akan menjadi ID riwayat
+        const historyId = parsedUrl.id;
         console.log('HistoryDetail: ID Riwayat yang diambil dari URL:', historyId);
 
-        // --- Referensi elemen DOM untuk Detail Riwayat Utama ---
         const historyDetailContent = document.getElementById('historyDetailContent');
         const actualHistoryDetail = document.getElementById('actualHistoryDetail');
         const loadingHistoryDetailMessage = document.getElementById('loadingHistoryDetailMessage');
         const noHistoryDetailMessage = document.getElementById('noHistoryDetailMessage');
         const errorHistoryDetailMessage = document.getElementById('errorHistoryDetailMessage');
 
-        // --- Referensi elemen DOM untuk Bagian Batik Terkait ---
         const relatedSectionTitle = document.getElementById('relatedSectionTitle');
         const relatedBatiksGrid = document.getElementById('relatedBatiksGrid');
         const loadingRelatedMessage = document.getElementById('loadingRelatedMessage');
         const noRelatedMessage = document.getElementById('noRelatedMessage');
         const errorRelatedMessage = document.getElementById('errorRelatedMessage');
         
-        // --- Helper Function untuk Mengatur Tampilan Pesan Status & Konten ---
         const hideAllHistoryDetailMessages = () => {
             if (loadingHistoryDetailMessage) loadingHistoryDetailMessage.style.display = 'none';
             if (noHistoryDetailMessage) noHistoryDetailMessage.style.display = 'none';
@@ -60,46 +55,33 @@ const HistoryDetail = {
             if (loadingRelatedMessage) loadingRelatedMessage.style.display = 'none';
             if (noRelatedMessage) noRelatedMessage.style.display = 'none';
             if (errorRelatedMessage) errorRelatedMessage.style.display = 'none';
-            if (relatedBatiksGrid) relatedBatiksGrid.innerHTML = ''; // Kosongkan grid sebelum mengisi
-            if (relatedSectionTitle) relatedSectionTitle.style.display = 'none'; // Sembunyikan judul bagian terkait
+            if (relatedBatiksGrid) relatedBatiksGrid.innerHTML = '';
+            if (relatedSectionTitle) relatedSectionTitle.style.display = 'none';
         };
 
-        // --- Inisialisasi Tampilan: Sembunyikan Semua Pesan dan Konten di Awal ---
         hideAllHistoryDetailMessages();
         hideAllRelatedMessages();
 
-        // --- Penanganan jika ID Riwayat tidak ada di URL ---
         if (!historyId) {
             hideAllHistoryDetailMessages();
             if (noHistoryDetailMessage) {
                 noHistoryDetailMessage.style.display = 'block';
                 noHistoryDetailMessage.textContent = 'ID riwayat tidak ditemukan di URL.';
             }
-            return; // Hentikan eksekusi lebih lanjut
+            return;
         }
 
-        // --- Fetch Detail Riwayat Utama ---
         if (loadingHistoryDetailMessage) loadingHistoryDetailMessage.style.display = 'block';
         let historyData = null;
 
         try {
-            // Panggil API untuk mendapatkan detail riwayat berdasarkan ID
-            const detailResult = await BatikApi.getHistoryDetail(historyId); 
+            const detailResult = await BatikApi.getHistoryDetail(historyId);
 
-            if (loadingHistoryDetailMessage) loadingHistoryDetailMessage.style.display = 'none'; // Sembunyikan loading setelah respons
-
-            // API respons Anda memiliki { status: true, message: "...", data: [...] }
-            // Namun, getHistoryDetail di BatikApi mengembalikan { success: true, data: data.data || data }
-            // Jika data adalah array tunggal (seperti di contoh), kita perlu mengakses elemen pertama.
-            // Asumsi: API history detail akan mengembalikan objek tunggal, BUKAN array.
-            // Jika API benar-benar mengembalikan array tunggal, kita perlu detailResult.data[0]
-            // Saya akan asumsikan API history detail akan mengembalikan objek tunggal.
+            if (loadingHistoryDetailMessage) loadingHistoryDetailMessage.style.display = 'none';
             
             if (detailResult.success && detailResult.data) {
-                // Jika detailResult.data adalah array tunggal, ambil elemen pertamanya
                 historyData = Array.isArray(detailResult.data) ? detailResult.data[0] : detailResult.data;
                 
-                // Pastikan historyData bukan null atau undefined setelah penyesuaian
                 if (!historyData) {
                     hideAllHistoryDetailMessages();
                     if (noHistoryDetailMessage) {
@@ -110,18 +92,17 @@ const HistoryDetail = {
                     return;
                 }
 
-                // --- SESUAIKAN DENGAN STRUKTUR RESPONS API ANDA ---
-                const scannedImageUrl = historyData.image_url || placeholderImage; // Dulu 'scanned_image_url'
+                const scannedImageUrl = historyData.image_url || placeholderImage;
                 const motifName = historyData.motif_name || 'Tidak Dikenal';
                 const provinsi = historyData.provinsi || 'Tidak Diketahui';
-                const description = historyData.description || 'Deskripsi tidak tersedia.'; // Menambahkan deskripsi
-                const occasion = historyData.occasion || null; // Menambahkan occasion
+                const description = historyData.description || 'Deskripsi tidak tersedia.';
+                const occasion = historyData.occasion || null;
                 
-                const confidence = historyData.confidence_score ? `${historyData.confidence_score.toFixed(2)}%` : 'N/A'; // Dulu 'confidence'
+                const confidence = historyData.confidence_score ? `${historyData.confidence_score.toFixed(2)}%` : 'N/A';
                 const scannedAt = historyData.created_at ? new Date(historyData.created_at).toLocaleString('id-ID', {
                     year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
-                }) : 'Tanggal tidak tersedia'; // Dulu 'created_at', format tanggal Indonesia
-                const motifId = historyData.motif_id; // ID motif batik terkait
+                }) : 'Tanggal tidak tersedia';
+                const motifId = historyData.motif_id;
 
                 if (actualHistoryDetail) {
                     actualHistoryDetail.innerHTML = `
@@ -135,14 +116,12 @@ const HistoryDetail = {
                             <p><a href="#/history" class="view-detail-link">Kembali</a></p>
                         </div>
                     `;
-                    actualHistoryDetail.style.display = 'block'; // Tampilkan konten detail
+                    actualHistoryDetail.style.display = 'block';
                 }
                 console.log('HistoryDetail: Detail riwayat berhasil dimuat:', historyData);
 
-                // --- Panggil fungsi untuk menampilkan batik terkait dari provinsi yang sama (jika ada motif_id & provinsi) ---
-                if (motifId && provinsi) { 
-                    // Pastikan motifId yang dilewatkan ke _fetchBatiksByProvince adalah ID motif batik, bukan ID riwayat
-                    await this._fetchBatiksByProvince(provinsi, motifId); 
+                if (motifId && provinsi) {
+                    await this._fetchBatiksByProvince(provinsi, motifId);
                 } else {
                     console.warn('HistoryDetail: Motif ID atau Provinsi tidak ditemukan dari data riwayat, tidak dapat memuat batik serupa berdasarkan provinsi.');
                     if (noRelatedMessage) {
@@ -173,8 +152,7 @@ const HistoryDetail = {
         console.log('HistoryDetail: Halaman selesai dirender.');
     },
 
-    // --- Fungsi untuk mengambil dan menampilkan batik berdasarkan provinsi (MIRIP DARI BATIKDETAIL.JS) ---
-    async _fetchBatiksByProvince(provinceName, currentMotifId) { // Menggunakan currentMotifId
+    async _fetchBatiksByProvince(provinceName, currentMotifId) {
         const relatedSectionTitle = document.getElementById('relatedSectionTitle');
         const relatedBatiksGrid = document.getElementById('relatedBatiksGrid');
         const loadingRelatedMessage = document.getElementById('loadingRelatedMessage');
@@ -209,15 +187,13 @@ const HistoryDetail = {
                 const groupedMotifs = allMotifsResult.data;
                 const batiksInSameProvince = groupedMotifs[provinceName] || [];
 
-                // Filter keluar motif batik yang sedang dilihat dari riwayat (berdasarkan motif_id)
                 const filteredBatiks = batiksInSameProvince.filter(batik => 
                     (batik.motif_id || batik.id) !== currentMotifId
                 );
 
                 if (filteredBatiks.length > 0) {
                     if (relatedBatiksGrid) {
-                        filteredBatiks.slice(0, 4).forEach(batik => { // Ambil 4 batik saja
-                            // Sesuaikan properti motif batik yang dikembalikan dari API /api/motif/group/provinsi
+                        filteredBatiks.slice(0, 4).forEach(batik => {
                             const imageUrl = batik.link_image || batik.imageUrl || placeholderImage;
                             const batikCard = document.createElement('div');
                             batikCard.className = 'batik-card';
