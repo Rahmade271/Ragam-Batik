@@ -2,7 +2,7 @@ const NotFound = {
   async render() {
     return `
       <section id="notFoundPage" class="page-section" style="text-align: center; padding: 50px;">
-        <p>Maaf, halaman yang Anda cari tidak ada.</p>
+        <p>Halaman yang Anda cari tidak ada, silahkan login kembali.</p>
         <a href="#/" class="primary-button">Kembali ke Beranda</a>
       </section>
     `;
