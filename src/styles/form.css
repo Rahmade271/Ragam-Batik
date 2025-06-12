@@ -1,0 +1,214 @@
+/* --- Import Fonts (jika belum diimpor di styles.css utama) --- */
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;700&display=swap');
+
+/* --- Konfigurasi Warna Umum (jika ini file terpisah dari styles.css utama) --- */
+/* Jika ini adalah file terpisah, Anda perlu mendefinisikan warna dasar */
+/* Jika ini bagian dari styles.css utama, maka ini bisa dihapus */
+/* :root {
+    --primary-color: #053D4D; // Dark Teal/Navy
+    --secondary-color: #FF6554; // Orange-Red accent
+    --white-color: #FFFFFF;
+    --text-color: #333;
+} */
+
+/* --- Body Styling (jika ini file terpisah, kalau tidak, sudah ada di styles.css) --- */
+/* Jika Anda memiliki styles.css utama, JANGAN DUPLIKASI INI */
+/* html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Mulish', sans-serif;
+    background-color: #FFF8F0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; // Ini mungkin akan membuat konten utama terpusat, bukan full width
+    min-height: 100vh;
+    padding-top: 90px; // Offset untuk header fixed
+} */
+
+
+/* --- Auth Page Container (Baru: Untuk memusatkan seluruh halaman otentikasi) --- */
+.auth-page-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack vertically */
+    align-items: center; /* Pusatkan horizontal */
+    justify-content: center; /* Pusatkan vertikal */
+    min-height: calc(100vh - 90px); /* Kurangi tinggi header fixed */
+    padding: 20px; /* Padding di sekitar form */
+    box-sizing: border-box;
+    width: 100%; /* Ambil lebar penuh */
+}
+
+/* --- Auth Form Container (Digunakan untuk SignIn dan SignUp) --- */
+.auth-form-container, .signin-container { /* Gabungkan styling kedua container */
+    background-color: #053D4D; /* primary-color */
+    padding: 60px; /* Default padding */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    width: 100%;
+    max-width: 400px; /* Lebar maksimal */
+    text-align: center;
+    color: white;
+    margin: auto; /* KUNCI UNTUK MEMUSATKAN! Ini menggantikan fixed margin-left/right */
+    min-height: 400px; /* Minimal tinggi agar terlihat oke */
+    display: flex; /* Untuk memusatkan konten di dalamnya jika diperlukan */
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* --- Form Title (H1) --- */
+.auth-form-container h1, .signin-container h1 {
+    margin-bottom: 30px;
+    font-size: clamp(1.8em, 5vw, 2.2em); /* Responsive font size */
+    font-weight: bold;
+    color: #FFFFFF; /* Pastikan putih */
+}
+
+/* --- Input Group Styling (KONSOLIDASI) --- */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: clamp(0.8em, 2.5vw, 0.9em); /* Responsive font size */
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #E0E0E0;
+    border-radius: 25px; /* Border radius bulat */
+    box-sizing: border-box;
+    font-size: clamp(0.9em, 3vw, 1em); /* Responsive font size */
+    background-color: white;
+    color: #333;
+    outline: none; /* Hapus outline saat fokus */
+    transition: border-color 0.2s ease-in-out;
+}
+
+.input-group input:focus {
+    border-color: #053D4D; /* primary-color */
+}
+
+/* --- Action Button (KONSOLIDASI) --- */
+.action-button, .signin-button { /* Gabungkan styling kedua tombol */
+    background-color: #FF6554; /* secondary-color */
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 25px; /* Border radius bulat */
+    cursor: pointer;
+    font-size: clamp(1em, 3.5vw, 1.1em); /* Responsive font size */
+    font-weight: bold;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.action-button:hover, .signin-button:hover {
+    background-color: #e65252; /* Darker secondary for hover */
+}
+
+/* --- Link di Bawah Form --- */
+.auth-link, .signup-link { /* Gabungkan styling */
+    margin-top: 15px; /* Sesuaikan margin */
+    font-size: clamp(0.85em, 2.5vw, 0.9em); 
+    color: white; /* Pastikan teks di form container berwarna putih */
+}
+
+.auth-link a, .signup-link a {
+    color: #BB921E; /* Warna link spesifik */
+    text-decoration: none;
+    font-weight: bold;
+    /* margin-top: 100px; */ /* Hapus ini, margin diatur di parent */
+}
+
+.auth-link a:hover, .signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* --- Auth Container (dari styles.css umum, mungkin akan dihapus/digabung) --- */
+/* Jika Anda sudah punya .auth-container di styles.css umum, pastikan tidak duplikat. */
+/* Biasanya, elemen ini digunakan untuk membungkus halaman auth secara keseluruhan. */
+/* Saya telah membuat .auth-page-wrapper untuk tujuan ini. */
+/* .auth-container {
+    display: flex;
+    min-height: 100vh;
+    padding: 20px;
+} */
+
+
+/* --- Media Queries for Auth Forms --- */
+
+/* Small Tablets & Large Phones (Max 767px) */
+@media (max-width: 767px) {
+    /* Main wrapper to remove fixed padding-top if header is static */
+    body {
+        padding-top: 0; 
+    }
+
+    /* Auth Page Container */
+    .auth-page-wrapper {
+        min-height: 100vh; /* Mengisi seluruh viewport */
+        padding: 15px; /* Padding lebih kecil */
+        /* justify-content: flex-start; // Opsional: jika ingin form menempel atas sedikit */
+    }
+
+    /* Auth Form Container */
+    .auth-form-container, .signin-container {
+        padding: 30px; /* Padding form lebih kecil */
+        max-width: 350px; /* Lebar maksimal lebih kecil */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow sedikit lebih kecil */
+        margin-top: 20%;
+        /* min-height: auto; // Biarkan tinggi form menyesuaikan konten */
+    }
+
+    /* Input Group */
+    .input-group label {
+        font-size: clamp(0.8em, 3vw, 0.9em); 
+    }
+    .input-group input {
+        padding: 10px; /* Padding input lebih kecil */
+        font-size: clamp(0.9em, 3.5vw, 1em);
+    }
+
+    /* Buttons */
+    .action-button, .signin-button {
+        padding: 10px; /* Padding button lebih kecil */
+        font-size: clamp(0.95em, 4vw, 1.1em);
+    }
+
+    /* Links */
+    .auth-link, .signup-link {
+        font-size: clamp(0.8em, 3vw, 0.9em);
+    }
+    
+}
+
+/* Smallest Phones (Max 480px) */
+@media (max-width: 480px) {
+    /* Auth Page Container */
+    
+    .auth-page-wrapper {
+        padding: 10px; /* Padding sangat kecil */
+    }
+
+    /* Auth Form Container */
+    .auth-form-container, .signin-container {
+        padding: 20px; /* Padding form paling kecil */
+        max-width: 300px; /* Lebar maksimal paling kecil */
+        margin-top: 20%;
+    }
+
+    /* Form Title */
+    .auth-form-container h1, .signin-container h1 {
+        font-size: clamp(1.6em, 6vw, 2em); /* Judul lebih kecil */
+        margin-bottom: 20px;
+    }
+}
