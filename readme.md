@@ -74,103 +74,15 @@ Kami telah meningkatkan performa model **EfficientNet-B0** yang telah dilatih se
 - Database disimpan melalui **Supabase**
 - Integrasi penyimpanan menggunakan **Amazon S3 (AWS)**
 
----
-
 ## 🔗 Prototype
 
 Kunjungi prototipe antarmuka aplikasi kami di Figma:
-👉 [Klik untuk melihat prototype di Figma](Berikut ini adalah versi lengkap dari file `README.md` yang sudah disusun rapi dengan penambahan:
+<a href="https://www.figma.com/proto/PhZxHOX9Sn2vgI3ryprj7Q/RagamBatik-Capstone?node-id=1058-120&starting-point-node-id=1058%3A120&t=cohs85TAtF1uewDD-1" target="_blank">👉 Klik untuk melihat prototype di Figma</a>
 
 * Penjelasan front-end dan back-end
 * Logo **Figma** dan **JavaScript**
 * Link ke prototype (gantilah link Figma sesuai kebutuhan)
 * Perbaikan struktur dan konsistensi Markdown
-
-```markdown
-# Ragam Batik
-
-### Welcome to Ragam Batik 👘
-
-Sistem klasifikasi citra batik berbasis machine learning yang mampu mengenali jenis batik dan asal daerahnya secara otomatis melalui gambar. Proyek ini merupakan bagian dari capstone project DBS Coding Camp.
-
----
-
-## 👥 Our Team
-
-**Team ID: CC25-CF258**
-
-| Name                     | Student ID     | Learning Path            | GitHub Link                                      |
-|--------------------------|----------------|---------------------------|--------------------------------------------------|
-| Maulidina Rahmawati      | MC009D5X2352   | Machine Learning          | [GitHub](https://github.com/mauliidna)          |
-| Mohamad Farrel Aryansyah| MC009D5Y2453   | Machine Learning          | [GitHub](https://github.com/farrelaryansyah)    |
-| Khansa Fakhirah Rifli    | MC009D5X2458   | Machine Learning          | [GitHub](https://github.com/Khansafr)           |
-| Ramdhini Novita Sari     | FC009D5X2478   | Front-End & Back-End      | [GitHub](https://github.com/ramdhini)           |
-| Soultan Amirul Mukminin  | FC156D5Y2082   | Front-End & Back-End      | [GitHub](https://github.com/soul222)            |
-| Rahmat Angga Saputra     | FC009D5Y2482   | Front-End & Back-End      | [GitHub](https://github.com/Rahmade271)         |
-
----
-
-## 📄 Project Documentation
-
-### Machine Learning (ML)
-
-Kami telah meningkatkan performa model **EfficientNet-B0** yang telah dilatih sebelumnya dengan menerapkan teknik augmentasi data dan mengintegrasikannya ke dalam arsitektur khusus yang disesuaikan dengan dataset dan tujuan spesifik kami. Model ini mampu meningkatkan akurasi klasifikasi dan mengurangi risiko overfitting.
-
-### Model Architecture
-
-| Layer (type)                                | Output Shape     | Parameters |
-|---------------------------------------------|------------------|------------|
-| mobilenetv2_1.00_224 (Functional)           | (None, 7, 7, 1280)| 2,257,984  |
-| global_average_pooling2d_1                  | (None, 1280)     | 0          |
-| dense_2                                     | (None, 128)      | 163,968    |
-| dropout_1                                   | (None, 128)      | 0          |
-| dense_3                                     | (None, 6)        | 774        |
-| **Total Params**                            |                  | 2,422,726  |
-| **Trainable Params**                        |                  | 164,742    |
-| **Non-trainable Params**                    |                  | 2,257,984  |
-
-![Training History](https://ragam-assets.s3.ap-southeast-2.amazonaws.com/Screenshot+2025-06-05+204539.jpg)
-
----
-
-## 💻 Tech Stack
-
-<div align="center">
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black&style=for-the-badge" height="45" alt="javascript logo"/>
-  <img src="https://img.shields.io/badge/Webpack-8DD6F9?logo=webpack&logoColor=black&style=for-the-badge" height="45" alt="webpack logo"/>
-  <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?logo=tailwindcss&logoColor=black&style=for-the-badge" height="45" alt="tailwindcss logo"/>
-  <img src="https://img.shields.io/badge/Hapi.js-%23f06e00?style=for-the-badge&logo=hapi.js&logoColor=white" height="45" alt="hapi logo"/>
-  <img src="https://img.shields.io/badge/Supabase-3ECF8E?logo=supabase&logoColor=black&style=for-the-badge" height="45" alt="supabase logo"/>
-  <img src="https://img.shields.io/badge/Amazon AWS-232F3E?logo=amazonwebservices&logoColor=FF9900&style=for-the-badge" height="45" alt="aws logo"/>
-  <img src="https://img.shields.io/badge/NumPy-013243?logo=numpy&logoColor=white&style=for-the-badge" height="45" alt="numpy logo"/>
-  <img src="https://img.shields.io/badge/TensorFlow-FF6F00?logo=tensorflow&logoColor=black&style=for-the-badge" height="45" alt="tensorflow logo"/>
-  <img src="https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=white&style=for-the-badge" height="45" alt="figma logo"/>
-</div>
-
----
-
-## 🖥️ Front-End & Back-End Overview
-
-### Front-End
-- Dibangun dengan **JavaScript**, **Tailwind CSS**, dan **Webpack**
-- Fokus pada tampilan responsif dan UI/UX ramah pengguna
-- Menggunakan Figma sebagai tools utama untuk desain antarmuka
-
-### Back-End
-- Menggunakan framework **Hapi.js**
-- Autentikasi dan otorisasi pengguna
-- API untuk interaksi dengan model machine learning
-- Database disimpan melalui **Supabase**
-- Integrasi penyimpanan menggunakan **Amazon S3 (AWS)**
-
----
-
-## 🔗 Prototype
-
-Kunjungi prototipe antarmuka aplikasi kami di Figma:
-👉 [Klik untuk melihat prototype di Figma](https://www.figma.com/file/your-prototype-link)
-
----
 
 ## ▶️ How to Use This App?
 
